@@ -1,0 +1,31 @@
+﻿@model WebIdentity.ViewModels.RegisterListViewModel
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Registers">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Users) {
+        <tr>
+            <td>@item.Email</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id  })
+                @Html.ActionLink("ChangePassword", "ChangePassword", new { id=item.Id  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
