@@ -116,6 +116,27 @@ namespace WebIdentity.Controllers
             }
             return View(model);
         }
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var Result = await _signInManager.PasswordSignInAsync
+                      (model.Email, model.Password, model.RememberMy, false);
+                if (Result.Succeeded)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                ModelState.AddModelError(String.Empty, "Invalid Email Or Password");
+            }
+            return View(model);
+        }
 
     }
 }
